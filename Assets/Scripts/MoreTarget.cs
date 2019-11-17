@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+using System;
 
 namespace Vuforia
 {
@@ -72,6 +74,11 @@ namespace Vuforia
         private void OnTrackingFound()
         {
             print(this.gameObject.name + ":find");
+            UserInfo.scanNum = Int32.Parse(this.gameObject.name.Split('_')[1])-1;
+            print(UserInfo.scanNum);
+            GameObject.Find("detectNum").GetComponent<Text>().text = UserInfo.scanNum.ToString();
+            print("set ar tree");
+            UserInfo.SetARTree();
 
             image.enabled = false;
             ConfirmButtonControl.Show();
@@ -83,15 +90,18 @@ namespace Vuforia
         {
             print(this.gameObject.name + ":lost");
             ConfirmButtonControl.Hide();
-            
+
+            GameObject.Find("detectNum").GetComponent<Text>().text = "None";
             image.enabled = true;
-            
+
+            GameObject.Find("score").GetComponent<Text>().text = "None";
+
 
         }
 
         #endregion // PRIVATE_METHODS
 
-       
+
     }
 }
 

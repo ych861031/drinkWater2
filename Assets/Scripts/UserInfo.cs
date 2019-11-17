@@ -70,7 +70,7 @@ public class UserInfo : MonoBehaviour
         }
         
 
-        SetARTree();
+        //SetARTree();
     }
 
     public static void SetInfo()
@@ -142,21 +142,21 @@ public class UserInfo : MonoBehaviour
         return str;
     }
 
-    public static int GetDrinkScore()
+    public static int GetDrinkScore(int num)
     {
         var date = GetDate();
-        var score = PlayerPrefs.GetInt(date + "DrinkScore", 0);
+        var score = PlayerPrefs.GetInt(date + "DrinkScore_" + num, 0);
        
 
         return score;
     }
 
-    public static void AddDrinkScore()
+    public static void AddDrinkScore(int num)
     {
         var date = GetDate();
         var addScore = PlayerPrefs.GetInt("playerDrink", 200);
-        var score = PlayerPrefs.GetInt(date + "DrinkScore", 0);
-        PlayerPrefs.SetInt(date + "DrinkScore", score + addScore);
+        var score = PlayerPrefs.GetInt(date + "DrinkScore_" + num, 0);
+        PlayerPrefs.SetInt(date + "DrinkScore_" + num, score + addScore);
 
         //set level
         score = PlayerPrefs.GetInt(date + "DrinkScore", 0);
@@ -182,32 +182,33 @@ public class UserInfo : MonoBehaviour
 
     }
 
+    public static int scanNum = 0;
     
 
     public static void SetARTree()
     {
         var t = GetTotalDrink();
-        var s = GetDrinkScore();
+        var s = GetDrinkScore(scanNum);
         var user_blood = s / t;
         var temp = 0;
-        int scanNum = 1;
 
+        GameObject.Find("score").GetComponent<Text>().text = s.ToString();
+
+        print(user_blood);
 
         if (user_blood < 0.3)
         {
-           
+
             tree1[scanNum].SetActive(true);
             tree2[scanNum].SetActive(false);
             tree3[scanNum].SetActive(false);
             tree4[scanNum].SetActive(false);
 
-
-
             temp = 1;
 
 
         }
-        else if(user_blood < 0.5)
+        else if (user_blood < 0.5)
         {
 
             tree1[scanNum].SetActive(false);
@@ -217,7 +218,7 @@ public class UserInfo : MonoBehaviour
             temp = 2;
 
         }
-        else if(user_blood < 0.9)
+        else if (user_blood < 0.9)
         {
 
             tree1[scanNum].SetActive(false);
@@ -237,32 +238,32 @@ public class UserInfo : MonoBehaviour
         }
 
 
-        var time = getTime.count();
-        float test = 0;
-        if (time >= 1800){
-            test = (float)(time / 1800);
-            if(test>=2){
+        //var time = getTime.count();
+        //float test = 0;
+        //if (time >= 1800){
+        //    test = (float)(time / 1800);
+        //    if(test>=2){
 
-                tree1[scanNum].SetActive(true);
-                tree2[scanNum].SetActive(false);
-                tree3[scanNum].SetActive(false);
-                tree4[scanNum].SetActive(false);
-            }
-            else if(test>=3){
+        //        tree1[scanNum].SetActive(true);
+        //        tree2[scanNum].SetActive(false);
+        //        tree3[scanNum].SetActive(false);
+        //        tree4[scanNum].SetActive(false);
+        //    }
+        //    else if(test>=3){
 
-                tree1[scanNum].SetActive(false);
-                tree2[scanNum].SetActive(true);
-                tree3[scanNum].SetActive(false);
-                tree4[scanNum].SetActive(false);
+        //        tree1[scanNum].SetActive(false);
+        //        tree2[scanNum].SetActive(true);
+        //        tree3[scanNum].SetActive(false);
+        //        tree4[scanNum].SetActive(false);
 
-            }
-            else{
-                tree1[scanNum].SetActive(false);
-                tree2[scanNum].SetActive(false);
-                tree3[scanNum].SetActive(true);
-                tree4[scanNum].SetActive(false);
-            }
-        }
+        //    }
+        //    else{
+        //        tree1[scanNum].SetActive(false);
+        //        tree2[scanNum].SetActive(false);
+        //        tree3[scanNum].SetActive(true);
+        //        tree4[scanNum].SetActive(false);
+        //    }
+        //}
 
     }
 

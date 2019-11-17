@@ -24,7 +24,7 @@ public class bloodstrip : MonoBehaviour
     public static void SetBloodStrip()
     {
         var t = UserInfo.GetTotalDrink();
-        var s = UserInfo.GetDrinkScore();
+        var s = UserInfo.GetDrinkScore(UserInfo.scanNum);
         user_blood = s / t;
 
         var blood_length = basic_length * user_blood - basic_length;
@@ -44,7 +44,7 @@ public class bloodstrip : MonoBehaviour
     public static void SetHomeBloodStrip()
     {
         var t = UserInfo.GetTotalDrink();
-        var s = UserInfo.GetDrinkScore();
+        var s = UserInfo.GetDrinkScore(UserInfo.scanNum);
         user_blood = s / t;
 
         var blood_length = basic_length * user_blood - basic_length;

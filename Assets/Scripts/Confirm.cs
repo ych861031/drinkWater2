@@ -15,7 +15,7 @@ public class Confirm : MonoBehaviour
 
     void OnClick()
     {
-        UserInfo.AddDrinkScore();
+        UserInfo.AddDrinkScore(UserInfo.scanNum);
         UserInfo.SetARTree();
 
         getTime.setTime();
