@@ -64,13 +64,13 @@ public class Basic : MonoBehaviour
 
     public static void SetHomeBloodStripText()
     {
-        print(UserInfo.GetDrinkScoreStr());
-        GameObject.Find("HomeStripStatus").GetComponent<Text>().text = UserInfo.GetDrinkScoreStr();
+        //print(UserInfo.GetDrinkScoreStr());
+        GameObject.Find("HomeStripStatus").GetComponent<Text>().text = UserInfo.GetDrinkScoreStr(CalendarSetting.num);
     }
 
     public static void SetARBloodStripText()
     {
-        GameObject.Find("ARStripStatus").GetComponent<Text>().text = UserInfo.GetDrinkScoreStr();
+        GameObject.Find("ARStripStatus").GetComponent<Text>().text = UserInfo.GetDrinkScoreStr(CalendarSetting.num);
     }
 
     public static void SetHomeBloodStrip()

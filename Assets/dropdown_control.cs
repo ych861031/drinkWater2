@@ -14,6 +14,10 @@ public class dropdown_control : MonoBehaviour
 
     public void ConsoleResult(int value)
     {
+        CalendarSetting.num = value;
+        CalendarSetting.UpdateCalender();
+        bloodstrip.SetHomeBloodStrip();
+        Basic.SetHomeBloodStripText();
         //这里用 if else if也可，看自己喜欢
         //分别对应：第一项、第二项....以此类推
         switch (value)
@@ -39,6 +43,7 @@ public class dropdown_control : MonoBehaviour
                 print("第6页");
                 break;
         }
+
     }
 
 }

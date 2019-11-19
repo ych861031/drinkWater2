@@ -6,12 +6,12 @@ using System;
 
 public class CalendarSetting : MonoBehaviour
 {
-    string year;
-    string month;
+    public static string year;
+    public static string month;
     Button btnLeft;
     Button btnRight;
 
-
+    public static int num = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +26,7 @@ public class CalendarSetting : MonoBehaviour
         SetCalender(int.Parse(year), int.Parse(month));
     }
 
-    void SetCalenderTitle()
+    static void SetCalenderTitle()
     {
         GameObject.Find("DateTitle").GetComponent<Text>().text = year + "年" + month + "月";
     }
@@ -72,13 +72,14 @@ public class CalendarSetting : MonoBehaviour
 
         print("find Image" + startId.ToString());
 
+        
         int date = 1;
         int i;
         for (i=startId;i< startId + DateTime.DaysInMonth(year, month); i++,date++)
         {
             //print("Image" + i.ToString());
             GameObject.Find("Image" + i.ToString()).transform.GetChild(0).GetComponent<Text>().text = date.ToString();
-            SetDrinkLevelImage("Image" + i.ToString(), PlayerPrefs.GetInt(year.ToString() + month.ToString() + date.ToString() + "DrinkScoreLevel", 0));
+            SetDrinkLevelImage("Image" + i.ToString(), PlayerPrefs.GetInt(year.ToString() + month.ToString() + date.ToString() + "DrinkScoreLevel_" + num, 0));
         }
 
         //delete 後面
@@ -151,6 +152,14 @@ public class CalendarSetting : MonoBehaviour
                 GameObject.Find(id).GetComponent<Image>().sprite = null;
                 break;
         }
+    }
+
+    public static void UpdateCalender(){
+
+        year = DateTime.Now.Year.ToString();
+        month = DateTime.Now.Month.ToString();
+        SetCalenderTitle();
+        SetCalender(int.Parse(year), int.Parse(month));
     }
     
 }

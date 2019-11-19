@@ -41,14 +41,17 @@ public class UserInfo : MonoBehaviour
         //PlayerPrefs.SetInt(date + "DrinkScore", 0);
 
         //default calendaer use image level
-        PlayerPrefs.SetInt("201981" + "DrinkScoreLevel", 2);
-        PlayerPrefs.SetInt("201983" + "DrinkScoreLevel", 4);
-        PlayerPrefs.SetInt("201988" + "DrinkScoreLevel", 1);
-        PlayerPrefs.SetInt("2019815" + "DrinkScoreLevel", 3);
-        PlayerPrefs.SetInt("2019818" + "DrinkScoreLevel", 2);
-        PlayerPrefs.SetInt("2019819" + "DrinkScoreLevel", 4);
-        PlayerPrefs.SetInt("2019825" + "DrinkScoreLevel", 1);
-        PlayerPrefs.SetInt("2019831" + "DrinkScoreLevel", 3);
+        PlayerPrefs.SetInt("2019111" + "DrinkScoreLevel_0", 2);
+        PlayerPrefs.SetInt("2019113" + "DrinkScoreLevel_1", 4);
+        PlayerPrefs.SetInt("2019118" + "DrinkScoreLevel_2", 1);
+        PlayerPrefs.SetInt("20191115" + "DrinkScoreLevel_3", 3);
+        PlayerPrefs.SetInt("20191118" + "DrinkScoreLevel_4", 2);
+        PlayerPrefs.SetInt("20191119" + "DrinkScoreLevel_5", 4);
+        PlayerPrefs.SetInt("20191125" + "DrinkScoreLevel_0", 1);
+        PlayerPrefs.SetInt("20191131" + "DrinkScoreLevel_1", 3);
+
+        PlayerPrefs.SetInt("20191120" + "DrinkScore_0", 500);
+
 
 
         UpdateInfo();
@@ -133,10 +136,10 @@ public class UserInfo : MonoBehaviour
         return weight * 30;
     }
 
-    public static string GetDrinkScoreStr()
+    public static string GetDrinkScoreStr(int num)
     {
         var date = GetDate();
-        var score = PlayerPrefs.GetInt(date + "DrinkScore", 0);
+        var score = PlayerPrefs.GetInt(date + "DrinkScore_" + num, 0);
         string str = score.ToString() + "/" + GetTotalDrink().ToString();
 
         return str;
@@ -159,22 +162,22 @@ public class UserInfo : MonoBehaviour
         PlayerPrefs.SetInt(date + "DrinkScore_" + num, score + addScore);
 
         //set level
-        score = PlayerPrefs.GetInt(date + "DrinkScore", 0);
+        score = PlayerPrefs.GetInt(date + "DrinkScore_" + num, 0);
         if (score<=800 && score >0)
         {
-            PlayerPrefs.SetInt(date + "DrinkScoreLevel", 1);
+            PlayerPrefs.SetInt(date + "DrinkScoreLevel_" + num, 1);
         }
         if (score <= 1600 && score > 800)
         {
-            PlayerPrefs.SetInt(date + "DrinkScoreLevel", 2);
+            PlayerPrefs.SetInt(date + "DrinkScoreLevel_" + num, 2);
         }
         if (score <= 2000 && score > 1600)
         {
-            PlayerPrefs.SetInt(date + "DrinkScoreLevel", 3);
+            PlayerPrefs.SetInt(date + "DrinkScoreLevel_" + num, 3);
         }
         if (score >= 2000)
         {
-            PlayerPrefs.SetInt(date + "DrinkScoreLevel", 4);
+            PlayerPrefs.SetInt(date + "DrinkScoreLevel_" + num, 4);
         }
 
         Basic.SetARBloodStripText();
