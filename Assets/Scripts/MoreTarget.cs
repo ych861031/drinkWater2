@@ -70,6 +70,7 @@ namespace Vuforia
 
         #region PRIVATE_METHODS
 
+        public static bool found;
         
         private void OnTrackingFound()
         {
@@ -80,9 +81,32 @@ namespace Vuforia
             print("set ar tree");
             UserInfo.SetARTree();
 
+            UserInfo.found = true;
             image.enabled = false;
-            ConfirmButtonControl.Show();
+            //ConfirmButtonControl.Show();
+            bloodstrip.SetBloodStrip();
+            Basic.SetARBloodStripText();
+
+
+            InvokeRepeating("check", 0, 1);
+
+
+        }
+
+        void check()
+        {
             
+            print(UserInfo.scanNum.ToString() + ":" + "test");
+            int num = UserInfo.scanNum;
+            print("num:" + num);
+            bool c = getTime.checkShow(num);
+            
+            print("result:" + c.ToString());
+            print("found:" + found);
+            if (c && UserInfo.found)
+            {
+                ConfirmButtonControl.Show();
+            }
         }
 
 
@@ -96,7 +120,9 @@ namespace Vuforia
 
             GameObject.Find("score").GetComponent<Text>().text = "None";
 
-
+            UserInfo.found = false;
+            bloodstrip.SetBloodStrip();
+            Basic.SetARBloodStripText();
         }
 
         #endregion // PRIVATE_METHODS

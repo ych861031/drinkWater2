@@ -56,6 +56,7 @@ public class Basic : MonoBehaviour
     void MoveAR()
     {
         print("open AR");
+        UserInfo.calender_check = false;
         ARCanvas.SetActive(true);
         SetARBloodStripText();
         bloodstrip.SetBloodStrip();
@@ -64,13 +65,15 @@ public class Basic : MonoBehaviour
 
     public static void SetHomeBloodStripText()
     {
+        UserInfo.calender_check = true;
         //print(UserInfo.GetDrinkScoreStr());
         GameObject.Find("HomeStripStatus").GetComponent<Text>().text = UserInfo.GetDrinkScoreStr(CalendarSetting.num);
     }
 
     public static void SetARBloodStripText()
     {
-        GameObject.Find("ARStripStatus").GetComponent<Text>().text = UserInfo.GetDrinkScoreStr(CalendarSetting.num);
+        print("!!!" + UserInfo.scanNum);
+        GameObject.Find("ARStripStatus").GetComponent<Text>().text = UserInfo.GetDrinkScoreStr(UserInfo.scanNum);
     }
 
     public static void SetHomeBloodStrip()

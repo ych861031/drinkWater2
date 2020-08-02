@@ -38,19 +38,19 @@ public class UserInfo : MonoBehaviour
         var date = GetDate();
 
         //測試時重設數據用
-        //PlayerPrefs.SetInt(date + "DrinkScore", 0);
+        PlayerPrefs.SetInt(date + "DrinkScore", 0);
 
         //default calendaer use image level
-        PlayerPrefs.SetInt("2019111" + "DrinkScoreLevel_0", 2);
-        PlayerPrefs.SetInt("2019113" + "DrinkScoreLevel_1", 4);
-        PlayerPrefs.SetInt("2019118" + "DrinkScoreLevel_2", 1);
-        PlayerPrefs.SetInt("20191115" + "DrinkScoreLevel_3", 3);
-        PlayerPrefs.SetInt("20191118" + "DrinkScoreLevel_4", 2);
-        PlayerPrefs.SetInt("20191119" + "DrinkScoreLevel_5", 4);
-        PlayerPrefs.SetInt("20191125" + "DrinkScoreLevel_0", 1);
-        PlayerPrefs.SetInt("20191131" + "DrinkScoreLevel_1", 3);
+        //PlayerPrefs.SetInt("2019111" + "DrinkScoreLevel_0", 2);
+        //PlayerPrefs.SetInt("2019113" + "DrinkScoreLevel_1", 4);
+        //PlayerPrefs.SetInt("2019118" + "DrinkScoreLevel_2", 1);
+        //PlayerPrefs.SetInt("20191115" + "DrinkScoreLevel_3", 3);
+        //PlayerPrefs.SetInt("20191118" + "DrinkScoreLevel_4", 2);
+        //PlayerPrefs.SetInt("20191119" + "DrinkScoreLevel_5", 4);
+        //PlayerPrefs.SetInt("20191125" + "DrinkScoreLevel_0", 1);
+        //PlayerPrefs.SetInt("20191131" + "DrinkScoreLevel_1", 3);
 
-        PlayerPrefs.SetInt("20191120" + "DrinkScore_0", 500);
+        //PlayerPrefs.SetInt("20191120" + "DrinkScore_0", 500);
 
 
 
@@ -133,14 +133,35 @@ public class UserInfo : MonoBehaviour
     {
         var weight = PlayerPrefs.GetFloat("playerWeight", 60);
 
-        return weight * 30;
+        if(weight * 30 < 2000)
+        {
+            return 2000;
+        }
+        else
+        {
+            return weight * 30;
+        }
+        
     }
 
+
+    public static bool found;
+    public static bool calender_check;
     public static string GetDrinkScoreStr(int num)
     {
         var date = GetDate();
         var score = PlayerPrefs.GetInt(date + "DrinkScore_" + num, 0);
-        string str = score.ToString() + "/" + GetTotalDrink().ToString();
+        string str;
+        print("str cal check" + calender_check);
+        if (!found && !calender_check)
+        {
+            str = "0/" + GetTotalDrink().ToString();
+            return str;
+        }
+
+        print("num:" + num);
+        print("score:" + score);
+        str = score.ToString() + "/" + GetTotalDrink().ToString();
 
         return str;
     }
@@ -149,7 +170,10 @@ public class UserInfo : MonoBehaviour
     {
         var date = GetDate();
         var score = PlayerPrefs.GetInt(date + "DrinkScore_" + num, 0);
-       
+        if (!found && !calender_check)
+        {
+            return 0;
+        }
 
         return score;
     }
@@ -185,17 +209,17 @@ public class UserInfo : MonoBehaviour
 
     }
 
-    public static int scanNum = 0;
+    public static int scanNum;
     
 
     public static void SetARTree()
     {
         var t = GetTotalDrink();
         var s = GetDrinkScore(scanNum);
+
         var user_blood = s / t;
         var temp = 0;
 
-        GameObject.Find("score").GetComponent<Text>().text = s.ToString();
 
         print(user_blood);
 
@@ -241,32 +265,39 @@ public class UserInfo : MonoBehaviour
         }
 
 
-        //var time = getTime.count();
-        //float test = 0;
-        //if (time >= 1800){
-        //    test = (float)(time / 1800);
-        //    if(test>=2){
 
-        //        tree1[scanNum].SetActive(true);
-        //        tree2[scanNum].SetActive(false);
-        //        tree3[scanNum].SetActive(false);
-        //        tree4[scanNum].SetActive(false);
-        //    }
-        //    else if(test>=3){
+        var time = getTime.count(scanNum);
 
-        //        tree1[scanNum].SetActive(false);
-        //        tree2[scanNum].SetActive(true);
-        //        tree3[scanNum].SetActive(false);
-        //        tree4[scanNum].SetActive(false);
+        float test = 0;
+        if (time >= 1800)
+        {
+            test = (float)(time / 1800);
 
-        //    }
-        //    else{
-        //        tree1[scanNum].SetActive(false);
-        //        tree2[scanNum].SetActive(false);
-        //        tree3[scanNum].SetActive(true);
-        //        tree4[scanNum].SetActive(false);
-        //    }
-        //}
+
+            if (test >= 2)
+            {  
+                tree1[scanNum].SetActive(true);
+                tree2[scanNum].SetActive(false);
+                tree3[scanNum].SetActive(false);
+                tree4[scanNum].SetActive(false);
+            }
+            else if (test >= 3)
+            {
+                tree1[scanNum].SetActive(false);
+                tree2[scanNum].SetActive(true);
+                tree3[scanNum].SetActive(false);
+                tree4[scanNum].SetActive(false);
+
+            }
+            else
+            {
+                tree1[scanNum].SetActive(false);
+                tree2[scanNum].SetActive(false);
+                tree3[scanNum].SetActive(true);
+                tree4[scanNum].SetActive(false);
+            }
+
+        }
 
     }
 

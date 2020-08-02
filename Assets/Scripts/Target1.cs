@@ -79,17 +79,17 @@ namespace Vuforia
 
 
 
-            InvokeRepeating("check",0,1);
+            //InvokeRepeating("check",0,1);
         }
 
-        void check(){
-            print("check");
-            bool c = getTime.checkShow();
-            if (c)
-            {
-                btn.SetActive(true);
-            }
-        }
+        //void check(){
+        //    print("check");
+        //    bool c = getTime.checkShow();
+        //    if (c)
+        //    {
+        //        btn.SetActive(true);
+        //    }
+        //}
 
                
         private void OnTrackingLost()

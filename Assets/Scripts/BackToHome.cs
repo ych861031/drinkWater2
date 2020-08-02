@@ -23,11 +23,12 @@ public class BackToHome : MonoBehaviour
         Basic.HomeCanvas.SetActive(true);
         Basic.SetHomeBloodStripText();
         Basic.SetHomeBloodStrip();
+        CalendarSetting.UpdateCalender();
+
 
         Basic.SetHomeBloodStrip2();
         Basic.UpdateHomeBar2Text();
         //update calender
-        CalendarSetting.SetCalender(DateTime.Now.Year,DateTime.Now.Month);
     }
     
 }

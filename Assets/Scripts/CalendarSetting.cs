@@ -22,6 +22,7 @@ public class CalendarSetting : MonoBehaviour
 
         year = DateTime.Now.Year.ToString();
         month = DateTime.Now.Month.ToString();
+        print("Date:" + year + "/" + month);
         SetCalenderTitle();
         SetCalender(int.Parse(year), int.Parse(month));
     }
@@ -72,18 +73,27 @@ public class CalendarSetting : MonoBehaviour
 
         print("find Image" + startId.ToString());
 
-        
+
+
         int date = 1;
         int i;
         for (i=startId;i< startId + DateTime.DaysInMonth(year, month); i++,date++)
         {
             //print("Image" + i.ToString());
-            GameObject.Find("Image" + i.ToString()).transform.GetChild(0).GetComponent<Text>().text = date.ToString();
-            SetDrinkLevelImage("Image" + i.ToString(), PlayerPrefs.GetInt(year.ToString() + month.ToString() + date.ToString() + "DrinkScoreLevel_" + num, 0));
+            try
+            {
+                GameObject.Find("Image" + i.ToString()).transform.GetChild(0).GetComponent<Text>().text = date.ToString();
+                SetDrinkLevelImage("Image" + i.ToString(), PlayerPrefs.GetInt(year.ToString() + month.ToString() + date.ToString() + "DrinkScoreLevel_" + num, 0));
+            }
+            catch
+            {
+                print("date error");
+            }
+            
         }
-
+        print("delete 前面");
         //delete 後面
-        for (; i <= 34; i++)
+        for (; i <= 41; i++)
         {
             GameObject.Find("Image" + i.ToString()).transform.GetChild(0).GetComponent<Text>().text = "";
             //設定圖片
@@ -134,6 +144,9 @@ public class CalendarSetting : MonoBehaviour
 
     static void SetDrinkLevelImage(string id,int level)
     {
+        //print("SetDrinkLevelImage...");
+        //print("id:" + id);
+        //print("level:" + level);
         switch (level)
         {
             case 1:
